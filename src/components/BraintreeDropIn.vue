@@ -57,8 +57,11 @@ import { FETCH_EVENT } from "@/store/actions.type";
       const response = await axios.post(`${API_URL}/payment/client_token`);
       this.clientPaymentToken = response.data.clientToken; // TODO: Use VUEX to get the client payment token
 
-      await this.dropinCreate();
+      try {
+        await this.dropinCreate();
+      } catch(err) {
 
+      }
       this.$parent.$on('tokenize', () => {
         this.dropinRequestPaymentMethod();
       });
