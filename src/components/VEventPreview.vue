@@ -5,7 +5,7 @@
       <h1 v-text="event.title" />
       <p v-text="event.description" />
       <span>See event...</span>
-      <TagList :tags="event.tagList" />
+      <TagList :tags="event.tagList" class="p-3 mb-2"/>
     </router-link>
   </div>
 </template>

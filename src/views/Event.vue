@@ -7,40 +7,107 @@ import Comment from "@/components/Comment";
 import CommentEditor from "@/components/CommentEditor";
 import Tag from "@/components/VTag";
 import { FETCH_EVENT, FETCH_COMMENTS } from "@/store/actions.type";
+import BraintreeDropIn from "@/components/BraintreeDropIn.vue";
+
+import VideoStream from "@/components/VideoStream.vue";
+
+import axios from "axios";
+import { API_URL } from "@/common/config";
 
 export default {
-  name: "rwv-event",
+  name: "event",
   props: {
     slug: {
       type: String,
       required: true
     }
   },
+  data() {
+    return {
+      authToken: {
+        token: ''
+      },
+      componentKey: 0
+    }
+  },
   components: {
     EventMeta,
     Comment,
     CommentEditor,
-    Tag
+    Tag,
+    BraintreeDropIn,
+    VideoStream
   },
-  created() {
-    // eslint-disable-next-line
-    const player = WowzaPlayer.create('playerElement',
-        {
-        'license': 'PLAY2-apXmY-XjGNc-7P4Qv-X4b33-QuGx9',
-        'title': '',
-        'description': '',
-        'sourceURL': 'http%3A%2F%2F192.168.117.1%3A1935%2Flive%2Froom-2.stream%2Fplaylist.m3u8',
-        'autoPlay': false,
-        'volume': '75',
-        'mute': true,
-        'loop': false,
-        'audioOnly': false,
-        'uiShowQuickRewind': true,
-        'uiQuickRewindSeconds': '30'
-        }
-    );
-    console.log(player);
+  async created() {
+    const response = await axios.post(`${API_URL}/payment/client_token`);
+    this._data.authToken.token = response.data.clientToken;
+    // TODO: This shouldn't be here. Use Vuex.
   },
+  // mounted() {
+
+  //   // TODO: Make this a separate method...
+    
+  //   let red5prosdkScript = document.createElement('script')
+
+  //   red5prosdkScript.onload = () => {
+  //     let webRTCScript = document.createElement('script')
+
+  //     webRTCScript.onload = () => {
+  //       // eslint-disable-next-line
+  //       // Create a new instance of the WebRTC subcriber.
+        
+  //       // eslint-disable-next-line
+  //       var subscriber = new red5prosdk.RTCSubscriber();
+    
+  //       // Create a view instance based on video element id.
+        
+  //       // eslint-disable-next-line
+  //       var viewer = new red5prosdk.PlaybackView('red5pro-subscriber');
+  //       // Attach the subscriber to the view.
+        
+  //       // eslint-disable-next-line
+  //       viewer.attachSubscriber(subscriber);
+    
+  //       // Using Chrome/Google TURN/STUN servers.
+        
+  //       // eslint-disable-next-line
+  //       var iceServers = [{urls: 'stun:stun2.l.google.com:19302'}];
+
+  //       // Initialize
+        
+  //       // eslint-disable-next-line
+  //       subscriber.init({
+  //           protocol: 'ws',
+  //           host: 'localhost', // TODO: Get this from Event data. 
+  //           port: 5080,
+  //           app: 'live',
+  //           streamName: 'lds',
+  //           rtcConfiguration: {
+  //           iceServers: [{urls: 'stun:stun2.l.google.com:19302'}],
+  //           iceCandidatePoolSize: 2,
+  //           bundlePolicy: 'max-bundle'
+  //         } // See https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection#RTCConfiguration_dictionary
+  //       })
+  //       .then(function() {
+  //           // Invoke the playback action
+  //           return subscriber.subscribe();
+  //       })
+  //       .catch(function(error) {
+  //           // A fault occurred while trying to initialize and subscribe to the stream.
+  //           console.error(error);
+  //       });
+  //     }
+
+  //     webRTCScript.setAttribute('src', 'https://webrtc.github.io/adapter/adapter-latest.js')
+  //     webRTCScript.async = true
+  //     document.head.appendChild(webRTCScript)
+
+
+  //   }
+  //   red5prosdkScript.setAttribute('src', 'lib/red5pro/red5pro-sdk.min.js')
+  //   red5prosdkScript.async = true
+  //   document.head.appendChild(red5prosdkScript)
+  // },
   beforeRouteEnter(to, from, next) {
     Promise.all([
       store.dispatch(FETCH_EVENT, to.params.slug),
@@ -55,11 +122,22 @@ export default {
   methods: {
     parseMarkdown(content) {
       return marked(content);
+    },
+    subscribed() {
+      // Force re-rendering
+      ++this.componentKey;
     }
   }
 };
 </script>
 
+<style>
+  .constrain {
+    width: 480px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+</style>
 
 <template>
   <div class="event-page">
@@ -84,8 +162,32 @@ export default {
         </div>
       </div>
       <hr />
-      <div class="row event-content">
-        <div  id="playerElement"  style="width:100%; height:0; padding:0 0 56.25% 0"></div>
+      <div v-if="isAuthenticated" :key="componentKey">
+        <div class="row" v-if="event.subscribed">
+          <VideoStream
+            host='localhost' 
+            port=5080
+            app='live'
+            streamName='lds'
+          ></VideoStream>
+        </div>
+        <div v-else>
+          Please subscribe so you can see the video stream.
+          <BraintreeDropIn
+          wrapperClass="constrain"
+          :authToken="this.authToken" 
+          :collectCardHolderName="true"
+          :enableDataCollector="true"
+          :enablePayPal="true"
+          :event="this.event"
+          @subscribed="subscribed"
+          >
+        </BraintreeDropIn>
+        </div>
+        <hr />
+      </div>
+      <div v-else>
+        Please log in so you can subscribe to the event and view the stream.
       </div>
       <hr />
       <div class="event-actions">

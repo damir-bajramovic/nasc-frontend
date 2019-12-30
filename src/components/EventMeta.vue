@@ -15,10 +15,10 @@
       <span class="date">{{ event.createdAt | date }}</span>
     </div>
     <template v-if="actions">
-      <rwv-event-actions
+      <event-actions
         :event="event"
         :canModify="isCurrentUser()"
-      ></rwv-event-actions>
+      ></event-actions>
     </template>
     <template v-else>
       <button

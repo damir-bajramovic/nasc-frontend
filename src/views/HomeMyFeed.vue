@@ -6,7 +6,7 @@
 import EventList from "@/components/EventList";
 
 export default {
-  name: "rwv-home-my-feed",
+  name: "home-my-feed",
   components: {
     EventList
   }

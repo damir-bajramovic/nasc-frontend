@@ -104,3 +104,9 @@ export const FavoriteService = {
     return ApiService.delete(`events/${slug}/favorite`);
   }
 };
+
+export const PaymentService = {
+  getToken() {
+    return ApiService.post("payment/client_token");
+  }
+}

@@ -40,10 +40,16 @@
                 </textarea>
               </fieldset>
               <fieldset class="form-group">
+                <input 
+                  v-model.number="event.price" 
+                  type="number" 
+                  placeholder="0"> <!-- TODO: Validation, 2 decimal places. This shouldn't be an integer. -->
+              </fieldset>
+              <fieldset class="form-group">
                 <input
                   type="text"
                   class="form-control"
-                  placeholder="Enter tags"
+                  placeholder="Type in the tag. Press enter after inputing the tag."
                   v-model="tagInput"
                   v-on:keypress.enter.prevent="addTag(tagInput);"
                 />

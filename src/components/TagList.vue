@@ -1,5 +1,5 @@
 <template>
-  <ul class="tag-list">
+  <ul class="tag-list pb-2 mb-1">
     <li
       class="tag-default tag-pill tag-outline"
       v-for="(tag, index) of tags"

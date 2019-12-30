@@ -5,7 +5,7 @@
 import EventList from "@/components/EventList";
 
 export default {
-  name: "rwv-home-global",
+  name: "home-global",
   components: {
     EventList
   }

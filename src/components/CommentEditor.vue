@@ -1,6 +1,6 @@
 <template>
   <div>
-    <rwv-list-errors :errors="errors"> </rwv-list-errors>
+    <list-errors :errors="errors"> </list-errors>
     <form
       class="card comment-form"
       v-on:submit.prevent="onSubmit(slug, comment)"

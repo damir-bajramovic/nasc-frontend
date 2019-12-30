@@ -5,6 +5,7 @@ import home from "./home.module";
 import auth from "./auth.module";
 import event from "./event.module";
 import profile from "./profile.module";
+import payment from "./payment.module";
 
 Vue.use(Vuex);
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     home,
     auth,
     event,
-    profile
+    profile,
+    payment
   }
 });
