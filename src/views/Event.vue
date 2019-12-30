@@ -43,71 +43,6 @@ export default {
     this._data.authToken.token = response.data.clientToken;
     // TODO: This shouldn't be here. Use Vuex.
   },
-  // mounted() {
-
-  //   // TODO: Make this a separate method...
-    
-  //   let red5prosdkScript = document.createElement('script')
-
-  //   red5prosdkScript.onload = () => {
-  //     let webRTCScript = document.createElement('script')
-
-  //     webRTCScript.onload = () => {
-  //       // eslint-disable-next-line
-  //       // Create a new instance of the WebRTC subcriber.
-        
-  //       // eslint-disable-next-line
-  //       var subscriber = new red5prosdk.RTCSubscriber();
-    
-  //       // Create a view instance based on video element id.
-        
-  //       // eslint-disable-next-line
-  //       var viewer = new red5prosdk.PlaybackView('red5pro-subscriber');
-  //       // Attach the subscriber to the view.
-        
-  //       // eslint-disable-next-line
-  //       viewer.attachSubscriber(subscriber);
-    
-  //       // Using Chrome/Google TURN/STUN servers.
-        
-  //       // eslint-disable-next-line
-  //       var iceServers = [{urls: 'stun:stun2.l.google.com:19302'}];
-
-  //       // Initialize
-        
-  //       // eslint-disable-next-line
-  //       subscriber.init({
-  //           protocol: 'ws',
-  //           host: 'localhost', // TODO: Get this from Event data. 
-  //           port: 5080,
-  //           app: 'live',
-  //           streamName: 'lds',
-  //           rtcConfiguration: {
-  //           iceServers: [{urls: 'stun:stun2.l.google.com:19302'}],
-  //           iceCandidatePoolSize: 2,
-  //           bundlePolicy: 'max-bundle'
-  //         } // See https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection#RTCConfiguration_dictionary
-  //       })
-  //       .then(function() {
-  //           // Invoke the playback action
-  //           return subscriber.subscribe();
-  //       })
-  //       .catch(function(error) {
-  //           // A fault occurred while trying to initialize and subscribe to the stream.
-  //           console.error(error);
-  //       });
-  //     }
-
-  //     webRTCScript.setAttribute('src', 'https://webrtc.github.io/adapter/adapter-latest.js')
-  //     webRTCScript.async = true
-  //     document.head.appendChild(webRTCScript)
-
-
-  //   }
-  //   red5prosdkScript.setAttribute('src', 'lib/red5pro/red5pro-sdk.min.js')
-  //   red5prosdkScript.async = true
-  //   document.head.appendChild(red5prosdkScript)
-  // },
   beforeRouteEnter(to, from, next) {
     Promise.all([
       store.dispatch(FETCH_EVENT, to.params.slug),
@@ -165,10 +100,10 @@ export default {
       <div v-if="isAuthenticated" :key="componentKey">
         <div class="row" v-if="event.subscribed">
           <VideoStream
-            host='localhost' 
-            port=5080
-            app='live'
-            streamName='lds'
+            :host="this.event.host"
+            :port="this.event.port"
+            :app="this.event.app"
+            :streamName="this.event.stream"
           ></VideoStream>
         </div>
         <div v-else>
