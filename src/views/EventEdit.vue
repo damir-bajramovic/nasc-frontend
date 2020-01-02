@@ -27,7 +27,7 @@
                   type="text"
                   class="form-control"
                   v-model="event.stream"
-                  placeholder="Enter a link to your IP camera stream."
+                  placeholder="Event stream name."
                 />
               </fieldset>
               <fieldset class="form-group">
@@ -43,7 +43,9 @@
                 <input 
                   v-model.number="event.price" 
                   type="number" 
-                  placeholder="0"> <!-- TODO: Validation, 2 decimal places. This shouldn't be an integer. -->
+                  class="form-control"
+                  step="0.01"
+                  placeholder="Price in dollars"> <!-- TODO: Validation. Can I send request that is not rounded to 2 decimals? Check on server as well. -->
               </fieldset>
               <fieldset class="form-group">
                 <input
