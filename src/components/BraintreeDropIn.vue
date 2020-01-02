@@ -49,7 +49,8 @@ import { FETCH_EVENT } from "@/store/actions.type";
       },
       enablePayPal: {
         value: Boolean,
-      }
+      },
+      event
     },
     async created() {
       console.log("CREATED", this.authToken.token);
@@ -129,10 +130,7 @@ import { FETCH_EVENT } from "@/store/actions.type";
           // await this.$forceUpdate()
           // console.log("EXECUTED FORCE UPDATE");
 
-          let reloadScript = document.createElement('script');
-          reloadScript.setAttribute('src', 'reload.js');
-          reloadScript.async = true;
-          document.head.appendChild(reloadScript);
+          window.location.reload(true);
 
 
         } catch (err) {

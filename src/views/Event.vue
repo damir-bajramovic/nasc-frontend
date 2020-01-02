@@ -57,10 +57,6 @@ export default {
   methods: {
     parseMarkdown(content) {
       return marked(content);
-    },
-    subscribed() {
-      // Force re-rendering
-      ++this.componentKey;
     }
   }
 };
@@ -97,29 +93,26 @@ export default {
         </div>
       </div>
       <hr />
-      <div v-if="isAuthenticated" :key="componentKey">
+      <div v-if="isAuthenticated">
         <div class="row" v-if="event.subscribed">
           <VideoStream
             :host="this.event.host"
             :port="this.event.port"
             :app="this.event.app"
-            :streamName="this.event.stream"
-          ></VideoStream>
+            :streamName="this.event.stream">
+            </VideoStream>
         </div>
         <div v-else>
-          Please subscribe so you can see the video stream.
+          <h5>Please subscribe to see the video stream. Subscription fee is ${{event.price}}.</h5>
           <BraintreeDropIn
-          wrapperClass="constrain"
           :authToken="this.authToken" 
           :collectCardHolderName="true"
           :enableDataCollector="true"
           :enablePayPal="true"
           :event="this.event"
-          @subscribed="subscribed"
-          >
-        </BraintreeDropIn>
+          @subscribed="subscribed">
+          </BraintreeDropIn>
         </div>
-        <hr />
       </div>
       <div v-else>
         Please log in so you can subscribe to the event and view the stream.
