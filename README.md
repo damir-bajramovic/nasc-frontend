@@ -1,4 +1,4 @@
-# Project Title
+# NASC Livestream App
 
 This is the livestreaming project repository.
 
@@ -13,7 +13,9 @@ What things you need to install the software and how to install them
 ```
 Git ($ sudo apt-get install git)
 ```
+```
 Node ($ sudo apt-get install -y nodejs)
+```
 ```
 Editor (Sublime, VS Code, etc...)
 ```
