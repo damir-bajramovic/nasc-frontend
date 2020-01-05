@@ -50,7 +50,7 @@ export default {
         
         // eslint-disable-next-line
         subscriber.init({
-            protocol: 'ws',
+            protocol: 'wss',
             host: this.host,
             port: this.port,
             app: this.app,
