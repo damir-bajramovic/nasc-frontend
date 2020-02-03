@@ -2,7 +2,8 @@ import Vue from "vue";
 import {
   EventsService,
   CommentsService,
-  FavoriteService
+  FavoriteService,
+  EventSubscriptionService
 } from "@/common/api.service";
 import {
   FETCH_EVENT,
@@ -16,7 +17,8 @@ import {
   EVENT_EDIT_ADD_TAG,
   EVENT_EDIT_REMOVE_TAG,
   EVENT_DELETE,
-  EVENT_RESET_STATE
+  EVENT_RESET_STATE,
+  EVENT_SUBSCRIBE
 } from "./actions.type";
 import {
   RESET_STATE,
@@ -91,6 +93,18 @@ export const actions = {
   },
   [EVENT_RESET_STATE]({ commit }) {
     commit(RESET_STATE);
+  },
+  [EVENT_SUBSCRIBE]({ commit, dispatch }, payload) {
+    console.log('ACTION***************', payload);
+    EventSubscriptionService.subscribe(payload.slug, payload.paymentData)
+      .then(response => {
+        console.log(response);
+        commit(RESET_STATE);
+        return dispatch(FETCH_EVENT, payload.slug);
+      })
+      .catch(error => {
+        throw new Error(error)
+      });
   }
 };
 
