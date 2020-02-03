@@ -95,10 +95,8 @@ export const actions = {
     commit(RESET_STATE);
   },
   [EVENT_SUBSCRIBE]({ commit, dispatch }, payload) {
-    console.log('ACTION***************', payload);
     EventSubscriptionService.subscribe(payload.slug, payload.paymentData)
       .then(response => {
-        console.log(response);
         commit(RESET_STATE);
         return dispatch(FETCH_EVENT, payload.slug);
       })
