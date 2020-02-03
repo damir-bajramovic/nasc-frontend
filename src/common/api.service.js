@@ -110,3 +110,9 @@ export const PaymentService = {
     return ApiService.post("payment/client_token");
   }
 }
+
+export const EventSubscriptionService = {
+  subscribe(slug, paymentData) {
+    return ApiService.post(`events/${slug}/subscribe`, { paymentData });
+  }
+}
