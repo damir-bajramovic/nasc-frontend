@@ -52,7 +52,6 @@ export default {
       return marked(content);
     },
     onCheckout(payload) {
-      console.log('onCheckout', payload);
       store.dispatch(EVENT_SUBSCRIBE, { paymentData: payload, slug: this.event.slug});
     }
   }
