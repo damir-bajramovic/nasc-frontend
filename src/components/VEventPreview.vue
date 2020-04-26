@@ -1,12 +1,28 @@
 <template>
   <div class="event-preview">
-    <EventMeta isPreview :event="event" />
-    <router-link :to="eventLink" class="preview-link">
-      <h1 v-text="event.title" />
-      <p v-text="event.description" />
-      <span>See event...</span>
-      <TagList :tags="event.tagList" class="p-3 mb-2"/>
-    </router-link>
+    <b-card no-body>
+      <b-card-header>
+        <EventMeta isPreview :event="event" />
+      </b-card-header>
+      <b-card-body>
+        <br>
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+          <div>
+            <h1 v-text="event.title" />
+            <p v-text="event.description" />
+          </div>
+          <b-button
+            size="sm"
+            variant="info"
+            :to="eventLink"
+            >See Event
+          </b-button>
+        </div>
+      </b-card-body>
+      <b-card-footer>
+        <TagList :tags="event.tagList"/>
+      </b-card-footer>
+    </b-card>
   </div>
 </template>
 

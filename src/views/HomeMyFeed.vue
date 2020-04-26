@@ -1,5 +1,5 @@
 <template>
-  <div class="home-my-feed"><EventList type="feed" /></div>
+  <div><EventList type="feed"/></div>
 </template>
 
 <script>

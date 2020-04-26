@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-page">
+  <div>
     <EventList :author="author" :items-per-page="5"></EventList>
   </div>
 </template>

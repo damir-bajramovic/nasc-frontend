@@ -1,19 +1,20 @@
 <template>
-  <div class="container">
+  <b-container>
     <ul v-if="paymentErrors" class="error-messages">
       <!-- <li v-for="(v, k) in errors" :key="k">{{ k }} {{ v | error }}</li> -->
       <li>{{paymentErrors}}</li>
     </ul>
-
     <div id="dropin-container"></div>
-
-    <button class="btn pull-xs-center btn-primary"
-            type="submit" 
-            id="submitTransaction" 
-            @click="dropinRequestPaymentMethod">
-            Confirm Payment
-    </button>
-  </div>
+    <b-button 
+      class="d-flex align-items-center"
+      size="sm"
+      variant="info"
+      type="submit" 
+      id="submitTransaction" 
+      @click="dropinRequestPaymentMethod"
+      >Confirm Payment
+    </b-button>
+  </b-container>
 </template>
 
 <script>

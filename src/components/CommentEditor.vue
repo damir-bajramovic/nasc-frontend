@@ -1,24 +1,21 @@
 <template>
   <div>
     <list-errors :errors="errors"> </list-errors>
-    <form
-      class="card comment-form"
-      v-on:submit.prevent="onSubmit(slug, comment)"
-    >
-      <div class="card-block">
-        <textarea
-          class="form-control"
+    <b-form @submit.prevent="onSubmit(slug, comment)">
+      <b-card no-body>
+        <b-form-textarea
           v-model="comment"
           placeholder="Write a comment..."
           rows="3"
-        >
-        </textarea>
-      </div>
-      <div class="card-footer">
-        <img :src="userImage" class="comment-author-img" />
-        <button class="btn btn-sm btn-primary">Post Comment</button>
-      </div>
-    </form>
+        ></b-form-textarea>
+        <b-card-footer>
+          <div class="d-flex justify-content-between align-items-center flex-wrap">
+            <img :src="userImage" class="comment-author-img mr-1" />
+            <b-button size="sm" variant="info" type="submit">Post Comment</b-button>
+          </div>
+        </b-card-footer>
+      </b-card>
+    </b-form>
   </div>
 </template>
 
@@ -55,3 +52,13 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.comment-author-img {
+  display: inline-block;
+  vertical-align: middle;
+  height: 20px;
+  width: 20px;
+  border-radius: 30px;
+}
+</style>

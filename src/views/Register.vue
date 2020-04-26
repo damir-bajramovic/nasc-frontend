@@ -1,50 +1,61 @@
 <template>
-  <div class="auth-page">
-    <div class="container page">
-      <div class="row">
-        <div class="col-md-6 offset-md-3 col-xs-12">
-          <h1 class="text-xs-center">Sign up</h1>
-          <p class="text-xs-center">
-            <router-link :to="{ name: 'login' }">
-              Have an account?
-            </router-link>
-          </p>
-          <ul v-if="errors" class="error-messages">
-            <li v-for="(v, k) in errors" :key="k">{{ k }} {{ v | error }}</li>
-          </ul>
-          <form v-on:submit.prevent="onSubmit">
-            <fieldset class="form-group">
-              <input
-                class="form-control form-control-lg"
-                type="text"
-                v-model="username"
-                placeholder="Username"
-              />
-            </fieldset>
-            <fieldset class="form-group">
-              <input
-                class="form-control form-control-lg"
-                type="text"
-                v-model="email"
-                placeholder="Email"
-              />
-            </fieldset>
-            <fieldset class="form-group">
-              <input
-                class="form-control form-control-lg"
+  <b-container class="bv-example-row">
+    <b-row align-h="center" class="my-5">
+        <b-col sm="4" md="6">
+          <b-card class="p-3">
+            <h3 class="mb-4">Sign Up</h3>
+            <b-form @submit.prevent="onSubmit">
+              <b-form-group
+                id="input-group-1"
+                label="Username:"
+                label-for="input-1"
+              >
+                <b-form-input
+                  id="input-1"
+                  v-model="username"
+                  type="text"
+                  trim
+                  required
+                  placeholder="JohnDoe"
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group
+                id="input-group-2"
+                label="Email address:"
+                label-for="input-2"
+              >
+                <b-form-input
+                  id="input-2"
+                  v-model="email"
+                  type="email"
+                  required
+                  placeholder="Email"
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group 
+                id="input-group-3" 
+                label="Password:" 
+                label-for="input-3">
+              <b-form-input
+                id="input-3"
                 type="password"
                 v-model="password"
                 placeholder="Password"
-              />
-            </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right">
-              Sign up
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+                required
+              ></b-form-input>
+              </b-form-group>
+
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <b-button type="submit" variant="primary" class="">Sign Up</b-button>
+                <router-link :to="{ name: 'login' }"
+                  >Have an account?
+                </router-link>
+              </div>
+            </b-form>
+          </b-card>
+        </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>

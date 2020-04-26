@@ -1,3 +1,11 @@
+<template>
+  <b-row v-if="event.subscribed">
+    <div id="video-container">
+      <video v-bind:id="this.streamName" controls autoplay class="video-size"></video>
+    </div>
+  </b-row>
+</template>
+
 <script>
 import { mapGetters } from "vuex";
 export default {
@@ -85,10 +93,74 @@ export default {
 }
 </script>
 
-<template>
-  <div class="row" v-if="event.subscribed">
-    <div id="video-container">
-      <video v-bind:id="this.streamName" width="640" height="480" controls autoplay></video>
-    </div>
-  </div>
-</template>
+<style>
+@media (min-width: 576px) {
+  .video-size {
+    height: 380px;
+    width: 500px;
+  }
+}
+
+@media (min-width: 768px) {
+  .video-size {
+    height: 500px;
+    width: 700px;
+  }
+}
+
+@media (min-width: 992px) {
+  .video-size {
+    height: 600px;
+    width: 900px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .video-size {
+    height: 700px;
+    width: 1100px;
+  }
+}
+
+@media (max-width: 575px) {
+  .video-size {
+    height: 430px;
+    width: 480px;
+  }
+}
+
+@media (max-width: 400px) {
+  .video-size {
+    height: 320px;
+    width: 360px;
+  }
+}
+
+@media (max-width: 500px) {
+  .video-size {
+    height: 350px;
+    width: 400px;
+  }
+}
+/*
+@media (max-width: 767px) {
+  .video-size {
+    height: 380px;
+    width: 500px;
+  }
+}
+
+@media (max-width: 991px) {
+  .video-size {
+    height: 380px;
+    width: 500px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .video-size {
+    height: 380px;
+    width: 500px;
+  }
+} */
+</style>

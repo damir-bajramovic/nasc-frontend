@@ -11,7 +11,9 @@ const state = {
   tags: [],
   events: [],
   isLoading: true,
-  eventsCount: 0
+  eventsCount: 0,
+  itemsPerPage: 10, // TODO: Maybe make this configurable
+  currentPage: 1
 };
 
 const getters = {
@@ -26,6 +28,12 @@ const getters = {
   },
   tags(state) {
     return state.tags;
+  },
+  itemsPerPage(state) {
+    return state.itemsPerPage;
+  },
+  currentPageStore(state) {
+    return state.currentPage;
   }
 };
 
@@ -48,6 +56,10 @@ const actions = {
       .catch(error => {
         throw new Error(error);
       });
+  },
+  paginate({commit, state}, { currentPage, perPage}) {
+    const start = (currentPage - 1) * perPage;
+    
   }
 };
 
@@ -76,6 +88,9 @@ const mutations = {
       event.favoritesCount = data.favoritesCount;
       return event;
     });
+  },
+  updateCurrentPage(state, data) {
+    state.currentPage = data;
   }
 };
 

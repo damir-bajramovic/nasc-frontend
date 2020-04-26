@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-page">
+  <div>
     <EventList :favorited="favorited" :items-per-page="5">
     </EventList>
   </div>

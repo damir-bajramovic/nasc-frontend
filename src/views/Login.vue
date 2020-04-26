@@ -1,42 +1,43 @@
 <template>
-  <div class="auth-page">
-    <div class="container page">
-      <div class="row">
-        <div class="col-md-6 offset-md-3 col-xs-12">
-          <h1 class="text-xs-center">Sign in</h1>
-          <p class="text-xs-center">
-            <router-link :to="{ name: 'register' }">
-              Need an account?
-            </router-link>
-          </p>
-          <ul v-if="errors" class="error-messages">
-            <li v-for="(v, k) in errors" :key="k">{{ k }} {{ v | error }}</li>
-          </ul>
-          <form v-on:submit.prevent="onSubmit(email, password);">
-            <fieldset class="form-group">
-              <input
-                class="form-control form-control-lg"
-                type="text"
-                v-model="email"
-                placeholder="Email"
-              />
-            </fieldset>
-            <fieldset class="form-group">
-              <input
-                class="form-control form-control-lg"
-                type="password"
-                v-model="password"
-                placeholder="Password"
-              />
-            </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right">
-              Sign in
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  <b-container class="bv-example-row">
+    <b-row align-h="center" class="my-5">
+        <b-col sm="4" md="6">
+          <b-card class="p-3">
+            <h3 class="mb-4">Login</h3>
+            <b-form @submit.prevent="onSubmit(email, password);">
+              <b-form-group
+                id="input-group-1"
+                label="Email address:"
+                label-for="input-1"
+              >
+                <b-form-input
+                  id="input-1"
+                  v-model="email"
+                  type="email"
+                  required
+                  placeholder="Email"
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group id="input-group-2" label="Password:" label-for="input-2">
+                <b-form-input
+                  id="input-2"
+                  type="password"
+                  v-model="password"
+                  placeholder="Password"
+                  required
+                ></b-form-input>
+              </b-form-group>
+
+              <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <b-button type="submit" variant="primary" class="">Log In</b-button>
+                <a href="#">Forgot password?</a>
+              </div>
+            </b-form>
+          </b-card>
+        </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>

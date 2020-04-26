@@ -1,3 +1,75 @@
+<template>
+  <div>
+    <div class="banner">
+      <b-container>
+        <h1>{{ event.title }}</h1>
+        <EventMeta :event="event" actions class="mt-4"></EventMeta>
+      </b-container>
+    </div>
+    <hr>
+    <b-container>
+      <b-row>
+        <b-col sm="12">
+          <div v-html="parseMarkdown(event.body)"></div>
+          <div class="tag-list">
+            <Tag v-for="(tag, index) in event.tagList" :name="tag" :key="tag + index"></Tag>
+          </div>
+        </b-col>
+      </b-row>
+      <hr />
+      <div v-if="isAuthenticated">
+        <b-row v-if="event.subscribed">
+          <VideoStream
+            :host="this.event.host"
+            :port="this.event.port"
+            :app="this.event.app"
+            :streamName="this.event.stream"
+            class="d-flex align-items-center"
+            >
+          </VideoStream>
+        </b-row>
+        <b-row v-else>
+          <h5>Please subscribe to see the video stream. Subscription fee is ${{event.price}}.</h5>
+          <BraintreeDropIn
+          :authToken="this.authToken" 
+          :collectCardHolderName="true"
+          :enableDataCollector="true"
+          :enablePayPal="true"
+          :event="this.event"
+          @subscribed="subscribed">
+          </BraintreeDropIn>
+        </b-row>
+      </div>
+      <div v-else>
+        Please log in so you can subscribe to the event and view the stream.
+      </div>
+      <b-row>
+        <b-col sm="12" md="8" offset-md="2">
+          <CommentEditor
+            v-if="isAuthenticated"
+            :slug="slug"
+            :userImage="currentUser.image"
+          >
+          </CommentEditor>
+          <p v-else>
+            <router-link :to="{ name: 'login' }">Sign in</router-link>
+            or
+            <router-link :to="{ name: 'register' }">sign up</router-link>
+            to add comments on this event.
+          </p>
+          <Comment
+            v-for="(comment, index) in comments"
+            :slug="slug"
+            :comment="comment"
+            :key="index"
+          >
+          </Comment>
+        </b-col>
+      </b-row>
+    </b-container>
+  </div>
+</template>
+
 <script>
 import { mapGetters } from "vuex";
 import marked from "marked";
@@ -63,87 +135,10 @@ export default {
 </script>
 
 <style>
-  .constrain {
-    width: 480px;
-    margin: 0 auto;
-    padding: 1rem;
-  }
+.banner {
+  color: #333;
+  background: #fff;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
 </style>
-
-<template>
-  <div class="event-page">
-    <div class="banner">
-      <div class="container">
-        <h1>{{ event.title }}</h1>
-        <EventMeta :event="event" :actions="true"></EventMeta>
-      </div>
-    </div>
-    <div class="container page">
-      <div class="row event-content">
-        <div class="col-xs-12">
-          <div v-html="parseMarkdown(event.body)"></div>
-          <ul class="tag-list">
-            <li v-for="(tag, index) of event.tagList" :key="tag + index">
-              <Tag
-                :name="tag"
-                className="tag-default tag-pill tag-outline"
-              ></Tag>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <hr />
-      <div v-if="isAuthenticated">
-        <div class="row" v-if="event.subscribed">
-          <VideoStream
-            :host="this.event.host"
-            :port="this.event.port"
-            :app="this.event.app"
-            :streamName="this.event.stream">
-            </VideoStream>
-        </div>
-        <div v-else>
-          <h5>Please subscribe to see the video stream. Subscription fee is ${{event.price}}.</h5>
-          <BraintreeDropIn
-          :authToken="this.authToken" 
-          :collectCardHolderName="true"
-          :enableDataCollector="true"
-          :enablePayPal="true"
-          :event="this.event"
-          @subscribed="subscribed">
-          </BraintreeDropIn>
-        </div>
-      </div>
-      <div v-else>
-        Please log in so you can subscribe to the event and view the stream.
-      </div>
-      <hr />
-      <div class="event-actions">
-        <EventMeta :event="event" :actions="true"></EventMeta>
-      </div>
-      <div class="row">
-        <div class="col-xs-12 col-md-8 offset-md-2">
-          <CommentEditor
-            v-if="isAuthenticated"
-            :slug="slug"
-            :userImage="currentUser.image"
-          >
-          </CommentEditor>
-          <p v-else>
-            <router-link :to="{ name: 'login' }">Sign in</router-link>
-            or
-            <router-link :to="{ name: 'register' }">sign up</router-link>
-            to add comments on this event.
-          </p>
-          <Comment
-            v-for="(comment, index) in comments"
-            :slug="slug"
-            :comment="comment"
-            :key="index"
-          >
-          </Comment>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
