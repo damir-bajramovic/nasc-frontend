@@ -29,18 +29,17 @@
           </VideoStream>
         </b-row>
         <b-row v-else>
-          <h5>Please subscribe to see the video stream. Subscription fee is ${{event.price}}.</h5>
+          <h5 class="my-3">Please subscribe to see the video stream. Subscription fee is ${{event.price}}.</h5>
           <BraintreeDropIn
-          :authToken="this.authToken" 
+          :paymentToken="paymentToken" 
           :collectCardHolderName="true"
           :enableDataCollector="true"
-          :enablePayPal="true"
-          :event="this.event"
-          @subscribed="subscribed">
+          :enablePayPal="false"
+          @checkout="onCheckout">
           </BraintreeDropIn>
         </b-row>
       </div>
-      <div v-else>
+      <div v-else class="my-3">
         Please log in so you can subscribe to the event and view the stream.
       </div>
       <b-row>
@@ -78,7 +77,7 @@ import EventMeta from "@/components/EventMeta";
 import Comment from "@/components/Comment";
 import CommentEditor from "@/components/CommentEditor";
 import Tag from "@/components/VTag";
-import { FETCH_EVENT, FETCH_COMMENTS } from "@/store/actions.type";
+import { FETCH_EVENT, FETCH_COMMENTS, FETCH_PAYMENT_TOKEN, EVENT_SUBSCRIBE } from "@/store/actions.type";
 import BraintreeDropIn from "@/components/BraintreeDropIn.vue";
 
 import VideoStream from "@/components/VideoStream.vue";
@@ -96,9 +95,6 @@ export default {
   },
   data() {
     return {
-      authToken: {
-        token: ''
-      },
       componentKey: 0
     }
   },
@@ -110,25 +106,24 @@ export default {
     BraintreeDropIn,
     VideoStream
   },
-  async created() {
-    const response = await axios.post(`${API_URL}/payment/client_token`);
-    this._data.authToken.token = response.data.clientToken;
-    // TODO: This shouldn't be here. Use Vuex.
-  },
   beforeRouteEnter(to, from, next) {
     Promise.all([
       store.dispatch(FETCH_EVENT, to.params.slug),
-      store.dispatch(FETCH_COMMENTS, to.params.slug)
+      store.dispatch(FETCH_COMMENTS, to.params.slug),
+      store.dispatch(FETCH_PAYMENT_TOKEN) // TODO: Get this only if user is logged in and not subscribed.
     ]).then(() => {
       next();
     });
   },
   computed: {
-    ...mapGetters(["event", "currentUser", "comments", "isAuthenticated"])
+    ...mapGetters(["event", "currentUser", "comments", "isAuthenticated", "paymentToken"])
   },
   methods: {
     parseMarkdown(content) {
       return marked(content);
+    },
+    onCheckout(payload) {
+      store.dispatch(EVENT_SUBSCRIBE, { paymentData: payload, slug: this.event.slug});
     }
   }
 };

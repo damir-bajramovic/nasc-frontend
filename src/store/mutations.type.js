@@ -12,3 +12,4 @@ export const TAG_REMOVE = "removeTag";
 export const UPDATE_EVENT_IN_LIST = "updateEventInList";
 export const RESET_STATE = "resetModuleState";
 export const UPDATE_CURRENT_PAGE = "updateCurrentPage";
+export const SET_PAYMENT_TOKEN = "setPaymentToken";

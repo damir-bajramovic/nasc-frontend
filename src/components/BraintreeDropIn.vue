@@ -18,16 +18,10 @@
 </template>
 
 <script>
-
-import axios from "axios";
-import { API_URL } from "@/common/config";
-import { FETCH_EVENT } from "@/store/actions.type"; 
-
-
   export default {
     name: "BraintreeDropIn",
     props: {
-      authToken: {
+      paymentToken: {
         value: String,
       },
       wrapperClass: {
@@ -50,15 +44,9 @@ import { FETCH_EVENT } from "@/store/actions.type";
       },
       enablePayPal: {
         value: Boolean,
-      },
-      event
+      }
     },
     async created() {
-      console.log("CREATED", this.authToken.token);
-      
-      const response = await axios.post(`${API_URL}/payment/client_token`);
-      this.clientPaymentToken = response.data.clientToken; // TODO: Use VUEX to get the client payment token
-
       try {
         await this.dropinCreate();
       } catch(err) {
@@ -68,27 +56,21 @@ import { FETCH_EVENT } from "@/store/actions.type";
         this.dropinRequestPaymentMethod();
       });
     },
-    mounted() {
-      console.log("MOUNTED", this.authToken.token);
-      console.log()
-    },
     data () {
       return {
         paymentErrors: null,
         errorMessage: '',
         dropinInstance: '',
         paymentPayload: '',
-        dataCollectorPayload: '',
-        clientPaymentToken: '' // TODO: REMOVE
+        dataCollectorPayload: ''
       }
     },
     methods: {
       async dropinCreate() {
         const dropin = require('braintree-web-drop-in');
-        console.log("THIS IS TOKEN!!!!!", this.authToken.token);
         // setup drop-in options
         const dropinOptions = {
-          authorization: this.clientPaymentToken, // this.authToken.token,
+          authorization: this.paymentToken,
           selector: '#dropin-container',
         }
 
@@ -104,36 +86,12 @@ import { FETCH_EVENT } from "@/store/actions.type";
           this.dropinInstance = await dropin.create(dropinOptions);
         } catch (err) {
           console.log(err);
-          console.log(this.authToken.token)
         }
       }, 
       async dropinRequestPaymentMethod() {
-        
         try {
-          const payload = await this.dropinInstance.requestPaymentMethod();
-          this.paymentPayload = payload;
-          console.log(payload);
-          console.log("EVENT", this.event);
-          const subscribeResponse = await axios.post(`${API_URL}/payment/checkout`, { payload: payload, event: this.event });
-          console.log("CHECKOUT FINISHED");
-          // do something with the payload/nonce
-          // await this.$store.dispatch(FETCH_EVENT, this.event.slug);
-          // this.$emit("subscribed");
-          console.log("BEFORE FORCE UPDATE");
-          // await this.$router.push({
-          //   name: "event",
-          //   params: { slug: data.event.slug }
-          // });
-
-          // console.log("try reload");
-          // this.Location.reload(true);
-          // console.log("RELOAD");
-          // await this.$forceUpdate()
-          // console.log("EXECUTED FORCE UPDATE");
-
-          window.location.reload(true);
-
-
+          this.paymentPayload = await this.dropinInstance.requestPaymentMethod();
+          this.$emit("checkout", this.paymentPayload);
         } catch (err) {
           console.log(err);
           this.paymentErrors = err.message; // TODO: MA
