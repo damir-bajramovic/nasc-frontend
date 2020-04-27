@@ -4,6 +4,8 @@ import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
 
+import "@/plugins/bootstrap-vue";
+
 import { CHECK_AUTH } from "./store/actions.type";
 import ApiService from "./common/api.service";
 import DateFilter from "./common/date.filter";

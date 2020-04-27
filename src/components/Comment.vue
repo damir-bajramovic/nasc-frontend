@@ -1,23 +1,30 @@
 <template>
-  <div class="card">
-    <div class="card-block">
-      <p class="card-text">{{ comment.body }}</p>
-    </div>
-    <div class="card-footer">
-      <a href="" class="comment-author">
-        <img :src="comment.author.image" class="comment-author-img" />
-      </a>
-      <router-link
-        class="comment-author"
-        :to="{ name: 'profile', params: { username: comment.author.username } }"
-      >
+  <div>
+    <b-card no-body class="my-2">
+      <b-card-body>
+        <b-card-text>
+        {{ comment.body }}
+        </b-card-text>
+      </b-card-body>
+      <b-card-footer>
+        <router-link
+          class="comment-author"
+          :to="{ name: 'profile', params: { username: comment.author.username } }"
+        >
+          <img :src="comment.author.image" class="comment-author-img mr-1"/>
+        </router-link>
+        <router-link
+          class="comment-author"
+          :to="{ name: 'profile', params: { username: comment.author.username } }"
+        >
         {{ comment.author.username }}
-      </router-link>
-      <span class="date-posted">{{ comment.createdAt | date }}</span>
-      <span v-if="isCurrentUser" class="mod-options">
+        </router-link>
+        <span class="date-posted">{{ comment.createdAt | date }}</span>
+        <span v-if="isCurrentUser" class="mod-options">
         <i class="ion-trash-a" v-on:click="destroy(slug, comment.id);"></i>
-      </span>
-    </div>
+        </span>
+      </b-card-footer>
+    </b-card>
   </div>
 </template>
 
@@ -47,3 +54,31 @@ export default {
   }
 };
 </script>
+
+<style>
+.comment-author-img {
+  display: inline-block;
+  vertical-align: middle;
+  height: 20px;
+  width: 20px;
+  border-radius: 30px;
+}
+
+.comment-author {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.date-posted {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5px;
+  color: #bbb;
+}
+
+.mod-options {
+  float: right;
+  color: #333;
+  font-size: 1rem;
+}
+</style>

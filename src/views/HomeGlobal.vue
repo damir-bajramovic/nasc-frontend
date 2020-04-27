@@ -1,5 +1,5 @@
 <template>
-  <div class="home-global"><EventList type="all" /></div>
+  <div><EventList type="all"/></div>
 </template>
 <script>
 import EventList from "@/components/EventList";

@@ -1,85 +1,124 @@
 <template>
-  <div class="editor-page">
-    <div class="container page">
-      <div class="row">
-        <div class="col-md-10 offset-md-1 col-xs-12">
+  <b-container class="bv-example-row">
+    <b-row align-h="center" class="my-5">
+      <b-col sm="12" md="10" offset-md="1">
+        <b-card class="p-3">
           <ListErrors :errors="errors" />
-          <form v-on:submit.prevent="onPublish(event.slug);">
-            <fieldset :disabled="inProgress">
-              <fieldset class="form-group">
-                <input
-                  type="text"
-                  class="form-control form-control-lg"
-                  v-model="event.title"
-                  placeholder="Event Title"
-                />
-              </fieldset>
-              <fieldset class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="event.description"
-                  placeholder="What's this event about? Write a catchy short description."
-                />
-              </fieldset>
-              <fieldset class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="event.stream"
-                  placeholder="Event stream name."
-                />
-              </fieldset>
-              <fieldset class="form-group">
-                <textarea
-                  class="form-control"
-                  rows="8"
-                  v-model="event.body"
-                  placeholder="Write more interesting things about your event."
+          <h3 class="mb-4">Event Editor</h3>
+          <b-form @submit.prevent="onPublish(event.slug);">
+            <b-form-group
+              id="input-group-1"
+              label="Event Title"
+              label-for="input-1"
+              description="Title of the event that you are creating.">
+              <b-form-input
+                id="input-1"
+                v-model="event.title"
+                type="text"
+                required
+                placeholder="Big Bad Event"
+                :disabled="inProgress">
+              </b-form-input>
+            </b-form-group>
+            <b-form-group
+              id="input-group-2"
+              label="Event Description"
+              label-for="input-2"
+              description="What's this event about? Write a short description.">
+              <b-form-input
+                id="input-2"
+                v-model="event.description"
+                type="text"
+                required
+                placeholder="See Big Bad Gladiators clash! Only in the Big Bad Event!"
+                :disabled="inProgress">
+              </b-form-input>
+            </b-form-group>
+            <b-form-group
+              id="input-group-3"
+              label="Event Stream Name"
+              label-for="input-3"
+              description="Name of the Stream created on our Servers.">
+              <b-form-input
+                id="input-3"
+                v-model="event.stream"
+                type="text"
+                required
+                placeholder="BigBadEvent-1"
+                :disabled="inProgress">
+              </b-form-input>
+            </b-form-group>
+            <b-form-group
+              id="input-group-4"
+              label="Event Details"
+              label-for="input-4"
+              description="Write more interesting details about your event.">
+              <b-form-textarea
+                id="input-4"
+                v-model="event.body"
+                type="text"
+                rows="8"
+                required
+                placeholder="Big Bad Event is happening at X. Y is finally clashing with Z in W arena."
+                :disabled="inProgress">
+              </b-form-textarea>
+            </b-form-group>
+            <b-form-group
+              id="input-group-5"
+              label="Event Price"
+              label-for="input-5"
+              description="Price in US Dollars.">
+              <b-form-input
+                id="input-5"
+                v-model="event.price"
+                type="number"
+                step="0.01"
+                required
+                placeholder="Big Bad Event"
+                :disabled="inProgress">
+              </b-form-input>
+            </b-form-group>
+            <b-form-group
+              id="input-group-6"
+              label="Event Tags"
+              label-for="input-6"
+              description="Type in a tag. Press enter after typing the tag.">
+              <b-form-input
+                id="input-6"
+                v-model="tagInput"
+                type="text"
+                placeholder="BigBadEvent"
+                :disabled="inProgress"
+                @keypress.enter.prevent="addTag(tagInput);"
                 >
-                </textarea>
-              </fieldset>
-              <fieldset class="form-group">
-                <input 
-                  v-model.number="event.price" 
-                  type="number" 
-                  class="form-control"
-                  step="0.01"
-                  placeholder="Price in dollars"> <!-- TODO: Validation. Can I send request that is not rounded to 2 decimals? Check on server as well. -->
-              </fieldset>
-              <fieldset class="form-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Type in the tag. Press enter after inputing the tag."
-                  v-model="tagInput"
-                  v-on:keypress.enter.prevent="addTag(tagInput);"
-                />
-                <div class="tag-list">
-                  <span
-                    class="tag-default tag-pill"
-                    v-for="(tag, index) of event.tagList"
-                    :key="tag + index"
-                  >
-                    <i class="ion-close-round" v-on:click="removeTag(tag);">
-                    </i>
-                    {{ tag }}
-                  </span>
-                </div>
-              </fieldset>
+              </b-form-input>
+            </b-form-group>
+            
+            <fieldset :disabled="inProgress">
+              <div class="tag-list mb-3">
+                <span
+                  class="tag-default tag-pill"
+                  v-for="(tag, index) of event.tagList"
+                  :key="tag + index"
+                >
+                  <i class="ion-close-round" @click="removeTag(tag);"></i>
+                  {{ tag }}
+                </span>
+              </div>
             </fieldset>
-            <button
+            <b-button
               :disabled="inProgress"
-              class="btn btn-lg pull-xs-right btn-primary"
+              size="lg"
+              variant="info"
               type="submit"
             >
               Publish Event
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+            </b-button>
+          </b-form>
+        </b-card>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>

@@ -1,59 +1,46 @@
 <template>
-  <div class="home-page">
-    <div class="banner">
-      <div class="container">
-        <h1 class="logo-font">NASC Inc.</h1>
-        <p>A place to see your favorite events.</p>
-      </div>
-    </div>
-    <div class="container page">
-      <div class="row">
-        <div class="col-md-9">
-          <div class="feed-toggle">
-            <ul class="nav nav-pills outline-active">
-              <li v-if="isAuthenticated" class="nav-item">
-                <router-link
-                  :to="{ name: 'home-my-feed' }"
-                  class="nav-link"
-                  active-class="active"
-                >
-                  Your Feed
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link
-                  :to="{ name: 'home' }"
-                  exact
-                  class="nav-link"
-                  active-class="active"
-                >
-                  Global Feed
-                </router-link>
-              </li>
-              <li class="nav-item" v-if="tag">
-                <router-link
-                  :to="{ name: 'home-tag', params: { tag } }"
-                  class="nav-link"
-                  active-class="active"
-                >
-                  <i class="ion-pound"></i> {{ tag }}
-                </router-link>
-              </li>
-            </ul>
-          </div>
-          <router-view></router-view>
-        </div>
-        <div class="col-md-3">
+  <div>
+    <b-jumbotron
+      header="NASC Inc."
+      lead="A place to see your favorite events."
+    ></b-jumbotron>
+    <b-container>
+      <b-row>
+        <b-col md="9">
+          <b-tabs>
+            <b-nav tabs>
+              <b-nav-item 
+                exact-active-class="active"
+                exact
+                :to="{ name: 'home-my-feed' }"
+              >Your Feed
+              </b-nav-item>
+              <b-nav-item
+                exact-active-class="active"
+                exact
+                :to="{ name: 'home' }"
+              >Global Feed
+              </b-nav-item>
+              <b-nav-item
+                v-if="tag"
+                exact-active-class="active"
+                :to="{ name: 'home-tag', params: { tag } }"
+              ><i class="ion-pound"></i> {{ tag }}
+              </b-nav-item>
+            </b-nav>
+            <router-view></router-view>
+          </b-tabs>
+        </b-col>
+        <b-col md="3">
           <div class="sidebar">
             <p>Popular Tags</p>
             <div class="tag-list">
-              <Tag v-for="(tag, index) in tags" :name="tag" :key="index">
-              </Tag>
+              <Tag v-for="(tag, index) in tags" :name="tag" :key="index"></Tag>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -78,3 +65,11 @@ export default {
   }
 };
 </script>
+
+<style>
+.sidebar {
+  padding: 5px 10px 10px;
+  background: #f3f3f3;
+  border-radius: 4px;
+}
+</style>

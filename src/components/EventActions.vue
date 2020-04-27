@@ -1,30 +1,29 @@
 <template>
   <!-- Used when user is also author -->
   <span v-if="canModify">
-    <router-link class="btn btn-sm btn-outline-secondary" :to="editEventLink">
+    <b-button :to="editEventLink" variant="outline-secondary" size="sm" class="mr-2">
       <i class="ion-edit"></i> <span>&nbsp;Edit Event</span>
-    </router-link>
-    <span>&nbsp;&nbsp;</span>
-    <button class="btn btn-outline-danger btn-sm" @click="deleteEvent">
+    </b-button>
+    <b-button @click="deleteEvent" variant="outline-danger" size="sm">
       <i class="ion-trash-a"></i> <span>&nbsp;Delete Event</span>
-    </button>
+    </b-button>
   </span>
   <!-- Used in EventView when not author -->
   <span v-else>
-    <button class="btn btn-sm btn-outline-secondary" @click="toggleFollow">
+    <b-button variant="outline-secondary" size="sm" @click="toggleFollow" class="mr-2">
       <i class="ion-plus-round"></i> <span>&nbsp;</span>
       <span v-text="followUserLabel" />
-    </button>
-    <span>&nbsp;&nbsp;</span>
-    <button
-      class="btn btn-sm"
+    </b-button>
+    <b-button
+      size="sm"
       @click="toggleFavorite"
       :class="toggleFavoriteButtonClasses"
+      variant="outline-success"
     >
       <i class="ion-heart"></i> <span>&nbsp;</span>
       <span v-text="favoriteEventLabel" /> <span>&nbsp;</span>
       <span class="counter" v-text="favoriteCounter" />
-    </button>
+    </b-button>
   </span>
 </template>
 

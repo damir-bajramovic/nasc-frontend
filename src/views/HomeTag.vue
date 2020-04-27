@@ -1,5 +1,5 @@
 <template>
-  <div class="home-tag"><EventList :tag="tag"></EventList></div>
+  <div><EventList :tag="tag"></EventList></div>
 </template>
 
 <script>
