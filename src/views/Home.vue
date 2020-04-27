@@ -13,6 +13,7 @@
                 exact-active-class="active"
                 exact
                 :to="{ name: 'home-my-feed' }"
+                v-if="isAuthenticated"
               >Your Feed
               </b-nav-item>
               <b-nav-item
