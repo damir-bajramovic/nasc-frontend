@@ -56,10 +56,6 @@ const actions = {
       .catch(error => {
         throw new Error(error);
       });
-  },
-  paginate({commit, state}, { currentPage, perPage}) {
-    const start = (currentPage - 1) * perPage;
-    
   }
 };
 

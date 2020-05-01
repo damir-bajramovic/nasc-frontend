@@ -9,24 +9,24 @@
         <b-col md="9">
           <b-tabs>
             <b-nav tabs>
-              <b-nav-item 
+              <b-nav-item
                 exact-active-class="active"
                 exact
                 :to="{ name: 'home-my-feed' }"
                 v-if="isAuthenticated"
-              >Your Feed
+                >Your Feed
               </b-nav-item>
               <b-nav-item
                 exact-active-class="active"
                 exact
                 :to="{ name: 'home' }"
-              >Global Feed
+                >Global Feed
               </b-nav-item>
               <b-nav-item
                 v-if="tag"
                 exact-active-class="active"
                 :to="{ name: 'home-tag', params: { tag } }"
-              ><i class="ion-pound"></i> {{ tag }}
+                ><i class="ion-pound"></i> {{ tag }}
               </b-nav-item>
             </b-nav>
             <router-view></router-view>

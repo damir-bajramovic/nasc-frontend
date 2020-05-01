@@ -1,7 +1,12 @@
 <template>
   <!-- Used when user is also author -->
   <span v-if="canModify">
-    <b-button :to="editEventLink" variant="outline-secondary" size="sm" class="mr-2">
+    <b-button
+      :to="editEventLink"
+      variant="outline-secondary"
+      size="sm"
+      class="mr-2"
+    >
       <i class="ion-edit"></i> <span>&nbsp;Edit Event</span>
     </b-button>
     <b-button @click="deleteEvent" variant="outline-danger" size="sm">
@@ -10,7 +15,12 @@
   </span>
   <!-- Used in EventView when not author -->
   <span v-else>
-    <b-button variant="outline-secondary" size="sm" @click="toggleFollow" class="mr-2">
+    <b-button
+      variant="outline-secondary"
+      size="sm"
+      @click="toggleFollow"
+      class="mr-2"
+    >
       <i class="ion-plus-round"></i> <span>&nbsp;</span>
       <span v-text="followUserLabel" />
     </b-button>
@@ -18,7 +28,6 @@
       size="sm"
       @click="toggleFavorite"
       :class="toggleFavoriteButtonClasses"
-      variant="outline-success"
     >
       <i class="ion-heart"></i> <span>&nbsp;</span>
       <span v-text="favoriteEventLabel" /> <span>&nbsp;</span>

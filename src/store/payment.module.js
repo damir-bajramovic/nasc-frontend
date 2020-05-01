@@ -13,11 +13,15 @@ const getters = {
 };
 
 const actions = {
-    [FETCH_PAYMENT_TOKEN]({commit}) {
-        return PaymentService.getToken()
-            .then(({data}) => { commit (SET_PAYMENT_TOKEN, data.clientToken)})
-            .catch(error => { throw new Error(error)});
-    }
+  [FETCH_PAYMENT_TOKEN]({ commit }) {
+    return PaymentService.getToken()
+      .then(({ data }) => {
+        commit(SET_PAYMENT_TOKEN, data.clientToken);
+      })
+      .catch(error => {
+        throw new Error(error);
+      });
+  }
 };
 
 /* eslint no-param-reassign: ["error", { "props": false }] */

@@ -3,25 +3,31 @@
     <b-card no-body class="my-2">
       <b-card-body>
         <b-card-text>
-        {{ comment.body }}
+          {{ comment.body }}
         </b-card-text>
       </b-card-body>
       <b-card-footer>
         <router-link
           class="comment-author"
-          :to="{ name: 'profile', params: { username: comment.author.username } }"
+          :to="{
+            name: 'profile',
+            params: { username: comment.author.username }
+          }"
         >
-          <img :src="comment.author.image" class="comment-author-img mr-1"/>
+          <img :src="comment.author.image" class="comment-author-img mr-1" />
         </router-link>
         <router-link
           class="comment-author"
-          :to="{ name: 'profile', params: { username: comment.author.username } }"
+          :to="{
+            name: 'profile',
+            params: { username: comment.author.username }
+          }"
         >
-        {{ comment.author.username }}
+          {{ comment.author.username }}
         </router-link>
         <span class="date-posted">{{ comment.createdAt | date }}</span>
         <span v-if="isCurrentUser" class="mod-options">
-        <i class="ion-trash-a" v-on:click="destroy(slug, comment.id);"></i>
+          <i class="ion-trash-a" v-on:click="destroy(slug, comment.id)"></i>
         </span>
       </b-card-footer>
     </b-card>

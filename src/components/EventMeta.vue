@@ -3,13 +3,16 @@
     <div class="d-flex justify-content-between align-items-center flex-wrap">
       <div>
         <router-link
-        :to="{ name: 'profile', params: { username: event.author.username } }"
+          :to="{ name: 'profile', params: { username: event.author.username } }"
         >
           <img :src="event.author.image" />
         </router-link>
         <div class="info">
           <router-link
-            :to="{ name: 'profile', params: { username: event.author.username } }"
+            :to="{
+              name: 'profile',
+              params: { username: event.author.username }
+            }"
             class="author"
           >
             {{ event.author.username }}
@@ -86,30 +89,30 @@ export default {
 
 <style scoped>
 .event-meta {
-    display: block;
-    position: relative;
-    font-weight: 300;
+  display: block;
+  position: relative;
+  font-weight: 300;
 }
 .event-meta img {
-    display: inline-block;
-    vertical-align: middle;
-    height: 32px;
-    width: 32px;
-    border-radius: 30px;
+  display: inline-block;
+  vertical-align: middle;
+  height: 32px;
+  width: 32px;
+  border-radius: 30px;
 }
 .event-meta .info {
-    margin: 0 1.5rem 0 0.3rem;
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 1rem;
+  margin: 0 1.5rem 0 0.3rem;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1rem;
 }
 .event-meta .info .author {
-    display: block;
-    font-weight: 500 !important;
+  display: block;
+  font-weight: 500 !important;
 }
 .event-meta .info .date {
-    color: #bbb;
-    font-size: 0.8rem;
-    display: block;
+  color: #bbb;
+  font-size: 0.8rem;
+  display: block;
 }
 </style>

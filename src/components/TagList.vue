@@ -1,13 +1,7 @@
 <template>
   <ul class="tag-list pb-2 mb-1">
-    <li
-      v-for="(tag, index) of tags"
-      :key="tag + index"
-    >
-      <tag
-        :name="tag"
-        className="tag-default tag-pill tag-outline">
-      </tag>
+    <li v-for="(tag, index) of tags" :key="tag + index">
+      <tag :name="tag" className="tag-default tag-pill tag-outline"> </tag>
     </li>
   </ul>
 </template>
@@ -21,7 +15,7 @@ export default {
     tags: Array
   },
   components: {
-    Tag,
+    Tag
   }
 };
 </script>
@@ -54,53 +48,60 @@ ul.tag-list li {
   display: inline-block !important;
 }
 .tag {
-    position: relative;
-    top: -1px;
+  position: relative;
+  top: -1px;
 }
-a.tag:focus, a.tag:hover {
-    color: #fff;
-    text-decoration: none;
-    cursor: pointer;
+a.tag:focus,
+a.tag:hover {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
 }
 .tag-pill {
-    padding-right: 0.6em;
-    padding-left: 0.6em;
-    border-radius: 10rem;
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+  border-radius: 10rem;
 }
 .tag-default {
-    background-color: #818a91;
+  background-color: #818a91;
 }
-.tag-default[href]:focus, .tag-default[href]:hover {
-    background-color: #687077;
+.tag-default[href]:focus,
+.tag-default[href]:hover {
+  background-color: #687077;
 }
 .tag-primary {
-    background-color: #5cb85c;
+  background-color: #5cb85c;
 }
-.tag-primary[href]:focus, .tag-primary[href]:hover {
-    background-color: #449d44;
+.tag-primary[href]:focus,
+.tag-primary[href]:hover {
+  background-color: #449d44;
 }
 .tag-success {
-    background-color: #5cb85c;
+  background-color: #5cb85c;
 }
-.tag-success[href]:focus, .tag-success[href]:hover {
-    background-color: #449d44;
+.tag-success[href]:focus,
+.tag-success[href]:hover {
+  background-color: #449d44;
 }
 .tag-info {
-    background-color: #5bc0de;
+  background-color: #5bc0de;
 }
-.tag-info[href]:focus, .tag-info[href]:hover {
-    background-color: #31b0d5;
+.tag-info[href]:focus,
+.tag-info[href]:hover {
+  background-color: #31b0d5;
 }
 .tag-warning {
-    background-color: #f0ad4e;
+  background-color: #f0ad4e;
 }
-.tag-warning[href]:focus, .tag-warning[href]:hover {
-    background-color: #ec971f;
+.tag-warning[href]:focus,
+.tag-warning[href]:hover {
+  background-color: #ec971f;
 }
 .tag-danger {
-    background-color: #b85c5c;
+  background-color: #b85c5c;
 }
-.tag-danger[href]:focus, .tag-danger[href]:hover {
-    background-color: #9d4444;
+.tag-danger[href]:focus,
+.tag-danger[href]:hover {
+  background-color: #9d4444;
 }
 </style>

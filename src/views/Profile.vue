@@ -22,7 +22,7 @@
               size="sm"
               class="action-btn"
               v-if="profile.following"
-              @click.prevent="unfollow();"
+              @click.prevent="unfollow()"
             >
               <i class="ion-plus-round"></i> &nbsp;Unfollow
               {{ profile.username }}
@@ -32,7 +32,7 @@
               size="sm"
               class="action-btn"
               v-if="!profile.following"
-              @click.prevent="follow();"
+              @click.prevent="follow()"
             >
               <i class="ion-plus-round"></i> &nbsp;Follow
               {{ profile.username }}
@@ -47,17 +47,17 @@
         <b-col sm="12" md="10" offset-md="1">
           <b-tabs>
             <b-nav tabs>
-              <b-nav-item 
+              <b-nav-item
                 exact-active-class="active"
                 exact
                 :to="{ name: 'profile' }"
-              >My Events
+                >My Events
               </b-nav-item>
               <b-nav-item
                 exact-active-class="active"
                 exact
                 :to="{ name: 'profile-favorites' }"
-              >Favorited Events
+                >Favorited Events
               </b-nav-item>
             </b-nav>
             <router-view></router-view>
@@ -115,7 +115,7 @@ export default {
   margin-bottom: 1rem;
 }
 
-.col-centered{
+.col-centered {
   float: none;
   margin: 0 auto;
 }

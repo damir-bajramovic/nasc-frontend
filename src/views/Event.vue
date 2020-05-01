@@ -6,13 +6,17 @@
         <EventMeta :event="event" actions class="mt-4"></EventMeta>
       </b-container>
     </div>
-    <hr>
+    <hr />
     <b-container>
       <b-row>
         <b-col sm="12">
           <div v-html="parseMarkdown(event.body)"></div>
           <div class="tag-list">
-            <Tag v-for="(tag, index) in event.tagList" :name="tag" :key="tag + index"></Tag>
+            <Tag
+              v-for="(tag, index) in event.tagList"
+              :name="tag"
+              :key="tag + index"
+            ></Tag>
           </div>
         </b-col>
       </b-row>
@@ -25,17 +29,22 @@
             :app="this.event.app"
             :streamName="this.event.stream"
             class="d-flex align-items-center"
-            >
+          >
           </VideoStream>
         </b-row>
         <b-row v-else>
-          <h5 class="my-3">Please subscribe to see the video stream. Subscription fee is ${{event.price}}.</h5>
+          <h5 class="my-3">
+            Please subscribe to see the video stream. Subscription fee is ${{
+              event.price
+            }}.
+          </h5>
           <BraintreeDropIn
-          :paymentToken="paymentToken" 
-          :collectCardHolderName="true"
-          :enableDataCollector="true"
-          :enablePayPal="false"
-          @checkout="onCheckout">
+            :paymentToken="paymentToken"
+            :collectCardHolderName="true"
+            :enableDataCollector="true"
+            :enablePayPal="false"
+            @checkout="onCheckout"
+          >
           </BraintreeDropIn>
         </b-row>
       </div>
@@ -77,13 +86,15 @@ import EventMeta from "@/components/EventMeta";
 import Comment from "@/components/Comment";
 import CommentEditor from "@/components/CommentEditor";
 import Tag from "@/components/VTag";
-import { FETCH_EVENT, FETCH_COMMENTS, FETCH_PAYMENT_TOKEN, EVENT_SUBSCRIBE } from "@/store/actions.type";
+import {
+  FETCH_EVENT,
+  FETCH_COMMENTS,
+  FETCH_PAYMENT_TOKEN,
+  EVENT_SUBSCRIBE
+} from "@/store/actions.type";
 import BraintreeDropIn from "@/components/BraintreeDropIn.vue";
 
 import VideoStream from "@/components/VideoStream.vue";
-
-import axios from "axios";
-import { API_URL } from "@/common/config";
 
 export default {
   name: "event",
@@ -96,7 +107,7 @@ export default {
   data() {
     return {
       componentKey: 0
-    }
+    };
   },
   components: {
     EventMeta,
@@ -116,14 +127,23 @@ export default {
     });
   },
   computed: {
-    ...mapGetters(["event", "currentUser", "comments", "isAuthenticated", "paymentToken"])
+    ...mapGetters([
+      "event",
+      "currentUser",
+      "comments",
+      "isAuthenticated",
+      "paymentToken"
+    ])
   },
   methods: {
     parseMarkdown(content) {
       return marked(content);
     },
     onCheckout(payload) {
-      store.dispatch(EVENT_SUBSCRIBE, { paymentData: payload, slug: this.event.slug});
+      store.dispatch(EVENT_SUBSCRIBE, {
+        paymentData: payload,
+        slug: this.event.slug
+      });
     }
   }
 };

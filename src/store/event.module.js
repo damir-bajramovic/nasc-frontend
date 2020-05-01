@@ -1,4 +1,3 @@
-import Vue from "vue";
 import {
   EventsService,
   CommentsService,
@@ -29,18 +28,20 @@ import {
   UPDATE_EVENT_IN_LIST
 } from "./mutations.type";
 
-const initialState = {
-  event: {
-    author: {},
-    title: "",
-    description: "",
-    body: "",
-    tagList: []
-  },
-  comments: []
-};
+function initialState() {
+  return {
+    event: {
+      author: {},
+      title: "",
+      description: "",
+      body: "",
+      tagList: []
+    },
+    comments: []
+  };
+}
 
-export const state = { ...initialState };
+export const state = { ...initialState() };
 
 export const actions = {
   async [FETCH_EVENT](context, eventSlug, prevEvent) {
@@ -83,6 +84,8 @@ export const actions = {
     return EventsService.destroy(slug);
   },
   [EVENT_EDIT]({ state }) {
+    console.log(state.event.slug);
+    console.log(state.event.price);
     return EventsService.update(state.event.slug, state.event);
   },
   [EVENT_EDIT_ADD_TAG](context, tag) {
@@ -96,12 +99,12 @@ export const actions = {
   },
   [EVENT_SUBSCRIBE]({ commit, dispatch }, payload) {
     EventSubscriptionService.subscribe(payload.slug, payload.paymentData)
-      .then(response => {
+      .then(() => {
         commit(RESET_STATE);
         return dispatch(FETCH_EVENT, payload.slug);
       })
       .catch(error => {
-        throw new Error(error)
+        throw new Error(error);
       });
   }
 };
@@ -115,15 +118,14 @@ export const mutations = {
     state.comments = comments;
   },
   [TAG_ADD](state, tag) {
-    state.event.tagList = state.event.tagList.concat([tag]);
+    if (!state.event.tagList.includes(tag))
+      state.event.tagList = state.event.tagList.concat([tag]);
   },
   [TAG_REMOVE](state, tag) {
     state.event.tagList = state.event.tagList.filter(t => t !== tag);
   },
   [RESET_STATE]() {
-    for (let f in state) {
-      Vue.set(state, f, initialState[f]);
-    }
+    Object.assign(state, initialState());
   }
 };
 

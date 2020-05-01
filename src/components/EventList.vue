@@ -61,16 +61,13 @@ export default {
   computed: {
     listConfig() {
       const { type } = this;
-      const filters = { };
+      const filters = {};
 
-      if (this.author)
-        filters.author = this.author;
-      
-      if (this.tag)
-        filters.tag = this.tag;
+      if (this.author) filters.author = this.author;
 
-      if (this.favorited)
-        filters.favorited = this.favorited;
+      if (this.tag) filters.tag = this.tag;
+
+      if (this.favorited) filters.favorited = this.favorited;
 
       return {
         type,

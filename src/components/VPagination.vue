@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     paginate(pageNumber) {
-      const fetchConfig = {...this.config}; // Don't mutate the prop. Ever.
+      const fetchConfig = { ...this.config }; // Don't mutate the prop. Ever.
       fetchConfig.filters.offset = this.getOffset();
       fetchConfig.filters.limit = this.itemsPerPage; // TODO: Maybe make this configurable.
 
@@ -41,15 +41,15 @@ export default {
     ...mapGetters({
       eventsCount: "eventsCount",
       itemsPerPage: "itemsPerPage",
-      currentPage: 'currentPageStore'
+      currentPage: "currentPageStore"
     }),
     currentPageStore: {
-      get(){
+      get() {
         return this.currentPage;
       },
-      set(newPageNumber){
+      set(newPageNumber) {
         this.$store.commit(UPDATE_CURRENT_PAGE, newPageNumber);
-      } 
+      }
     }
   }
 };

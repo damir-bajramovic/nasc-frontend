@@ -1,7 +1,12 @@
 <template>
   <div id="app" class="d-flex flex-column min-vh-100">
     <div class="page" v-if="isLoading">
-      <b-spinner v-if="isLoading" class="spinner" variant="primary" key="primary"></b-spinner>
+      <b-spinner
+        v-if="isLoading"
+        class="spinner"
+        variant="primary"
+        key="primary"
+      ></b-spinner>
     </div>
     <div class="wrapper flex-grow-1">
       <Header />
@@ -16,8 +21,6 @@ import { mapGetters } from "vuex";
 
 import Header from "@/components/TheHeader";
 import Footer from "@/components/TheFooter";
-
-
 
 export default {
   name: "App",

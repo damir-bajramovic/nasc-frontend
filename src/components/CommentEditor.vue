@@ -9,9 +9,13 @@
           rows="3"
         ></b-form-textarea>
         <b-card-footer>
-          <div class="d-flex justify-content-between align-items-center flex-wrap">
+          <div
+            class="d-flex justify-content-between align-items-center flex-wrap"
+          >
             <img :src="userImage" class="comment-author-img mr-1" />
-            <b-button size="sm" variant="info" type="submit">Post Comment</b-button>
+            <b-button size="sm" variant="info" type="submit"
+              >Post Comment</b-button
+            >
           </div>
         </b-card-footer>
       </b-card>

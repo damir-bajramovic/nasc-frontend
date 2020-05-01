@@ -1,7 +1,6 @@
 <template>
   <div>
-    <EventList :favorited="favorited" :items-per-page="5">
-    </EventList>
+    <EventList :favorited="favorited" :items-per-page="5"> </EventList>
   </div>
 </template>
 

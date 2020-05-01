@@ -12,14 +12,20 @@
       </b-navbar-nav>
       <b-navbar-nav v-else class="ml-auto">
         <b-nav-item :to="{ name: 'home' }">Home</b-nav-item>
-        <b-nav-item :to="{ name: 'event-edit' }"><i class="ion-compose"></i>&nbsp;New Event</b-nav-item>
-        <b-nav-item exact :to="{ name: 'settings' }"><i class="ion-gear-a"></i>&nbsp;Settings</b-nav-item>
-        <b-nav-item 
+        <b-nav-item :to="{ name: 'event-edit' }"
+          ><i class="ion-compose"></i>&nbsp;New Event</b-nav-item
+        >
+        <b-nav-item exact :to="{ name: 'settings' }"
+          ><i class="ion-gear-a"></i>&nbsp;Settings</b-nav-item
+        >
+        <b-nav-item
           exact
           :to="{
             name: 'profile',
             params: { username: currentUser.username }
-          }">{{ currentUser.username }}</b-nav-item>
+          }"
+          >{{ currentUser.username }}</b-nav-item
+        >
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
