@@ -117,14 +117,16 @@ export default {
     BraintreeDropIn,
     VideoStream
   },
-  beforeRouteEnter(to, from, next) {
-    Promise.all([
-      store.dispatch(FETCH_EVENT, to.params.slug),
-      store.dispatch(FETCH_COMMENTS, to.params.slug),
-      store.dispatch(FETCH_PAYMENT_TOKEN) // TODO: Get this only if user is logged in and not subscribed.
-    ]).then(() => {
+  async beforeRouteEnter(to, from, next) {
+    try {
+      await store.dispatch(FETCH_EVENT, to.params.slug);
+      await store.dispatch(FETCH_COMMENTS, to.params.slug);
+      if (store.state.auth.isAuthenticated)
+        await store.dispatch(FETCH_PAYMENT_TOKEN)
       next();
-    });
+    } catch (error) {
+      next(error);
+    }
   },
   computed: {
     ...mapGetters([
