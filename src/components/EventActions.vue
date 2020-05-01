@@ -19,7 +19,7 @@
       variant="outline-secondary"
       size="sm"
       @click="toggleFollow"
-      class="mr-2"
+      class="mr-2 mt-2"
     >
       <i class="ion-plus-round"></i> <span>&nbsp;</span>
       <span v-text="followUserLabel" />
@@ -27,7 +27,8 @@
     <b-button
       size="sm"
       @click="toggleFavorite"
-      :class="toggleFavoriteButtonClasses"
+      class="mt-2"
+      :variant="toggleFavoriteButtonVariants"
     >
       <i class="ion-heart"></i> <span>&nbsp;</span>
       <span v-text="favoriteEventLabel" /> <span>&nbsp;</span>
@@ -57,11 +58,8 @@ export default {
     editEventLink() {
       return { name: "event-edit", params: { slug: this.event.slug } };
     },
-    toggleFavoriteButtonClasses() {
-      return {
-        "btn-primary": this.event.favorited,
-        "btn-outline-primary": !this.event.favorited
-      };
+    toggleFavoriteButtonVariants() {
+      return this.event.favorited ? "secondary" : "outline-secondary";
     },
     followUserLabel() {
       return `${this.profile.following ? "Unfollow" : "Follow"} ${
