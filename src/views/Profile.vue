@@ -92,7 +92,10 @@ export default {
       return false;
     },
     follow() {
-      if (!this.isAuthenticated) return;
+      if (!this.isAuthenticated) {
+        this.$router.push({ name: "login" });
+        return;
+      }
       this.$store.dispatch(FETCH_PROFILE_FOLLOW, this.$route.params);
     },
     unfollow() {
