@@ -17,8 +17,10 @@
                 v-model="event.title"
                 type="text"
                 required
+                trim
                 placeholder="Big Bad Event"
                 :disabled="inProgress"
+                @focus="formEdited"
               >
               </b-form-input>
             </b-form-group>
@@ -33,8 +35,10 @@
                 v-model="event.description"
                 type="text"
                 required
+                trim
                 placeholder="See Big Bad Gladiators clash! Only in the Big Bad Event!"
                 :disabled="inProgress"
+                @focus="formEdited"
               >
               </b-form-input>
             </b-form-group>
@@ -49,8 +53,10 @@
                 v-model="event.stream"
                 type="text"
                 required
+                trim
                 placeholder="BigBadEvent-1"
                 :disabled="inProgress"
+                @focus="formEdited"
               >
               </b-form-input>
             </b-form-group>
@@ -66,8 +72,10 @@
                 type="text"
                 rows="8"
                 required
+                trim
                 placeholder="Big Bad Event is happening at X. Y is finally clashing with Z in W arena."
                 :disabled="inProgress"
+                @focus="formEdited"
               >
               </b-form-textarea>
             </b-form-group>
@@ -83,8 +91,10 @@
                 type="number"
                 step="0.01"
                 required
+                no-wheel
                 placeholder="Big Bad Event"
                 :disabled="inProgress"
+                @focus="formEdited"
               >
               </b-form-input>
             </b-form-group>
@@ -101,6 +111,7 @@
                 placeholder="BigBadEvent"
                 :disabled="inProgress"
                 @keypress.enter.prevent="addTag(tagInput)"
+                @focus="formEdited"
               >
               </b-form-input>
             </b-form-group>
@@ -186,7 +197,7 @@ export default {
     return {
       tagInput: null,
       inProgress: false,
-      showExitDialog: true,
+      showExitDialog: false,
       errors: {}
     };
   },
@@ -219,6 +230,9 @@ export default {
     addTag(tag) {
       this.$store.dispatch(EVENT_EDIT_ADD_TAG, tag);
       this.tagInput = null;
+    },
+    formEdited() {
+      this.showExitDialog = true;
     }
   }
 };
