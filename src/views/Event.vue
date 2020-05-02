@@ -122,7 +122,7 @@ export default {
       await store.dispatch(FETCH_EVENT, to.params.slug);
       await store.dispatch(FETCH_COMMENTS, to.params.slug);
       if (store.state.auth.isAuthenticated)
-        await store.dispatch(FETCH_PAYMENT_TOKEN)
+        await store.dispatch(FETCH_PAYMENT_TOKEN);
       next();
     } catch (error) {
       next(error);
