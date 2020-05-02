@@ -26,7 +26,7 @@ const actions = {
         return data;
       })
       .catch(() => {
-        // #todo SET_ERROR cannot work in multiple states
+        // TODO SET_ERROR cannot work in multiple states
         // context.commit(SET_ERROR, response.data.errors)
       });
   },
@@ -38,7 +38,7 @@ const actions = {
         return data;
       })
       .catch(() => {
-        // #todo SET_ERROR cannot work in multiple states
+        // TODO SET_ERROR cannot work in multiple states
         // context.commit(SET_ERROR, response.data.errors)
       });
   },
@@ -50,7 +50,7 @@ const actions = {
         return data;
       })
       .catch(() => {
-        // #todo SET_ERROR cannot work in multiple states
+        // TODO SET_ERROR cannot work in multiple states
         // context.commit(SET_ERROR, response.data.errors)
       });
   }

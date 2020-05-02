@@ -28,7 +28,7 @@ export default {
     paginate(pageNumber) {
       const fetchConfig = { ...this.config }; // Don't mutate the prop. Ever.
       fetchConfig.filters.offset = this.getOffset();
-      fetchConfig.filters.limit = this.itemsPerPage; // TODO: Maybe make this configurable.
+      fetchConfig.filters.limit = this.itemsPerPage;
 
       this.$store.dispatch(FETCH_EVENTS, fetchConfig);
       this.$store.commit(UPDATE_CURRENT_PAGE, pageNumber);

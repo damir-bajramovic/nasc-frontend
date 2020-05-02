@@ -129,7 +129,6 @@ export default {
   methods: {
     updateSettings() {
       this.$store.dispatch(UPDATE_USER, this.currentUser).then(() => {
-        // TODO, nice toast and no redirect
         this.$router.push("/");
       });
     }

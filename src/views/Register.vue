@@ -24,6 +24,7 @@
               label="Email address:"
               label-for="input-2"
             >
+              <!-- TODO: Add vee-validate validation  -->
               <b-form-input
                 id="input-2"
                 v-model="email"
