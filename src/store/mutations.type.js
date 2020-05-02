@@ -1,5 +1,6 @@
 export const FETCH_END = "setEvents";
-export const FETCH_START = "setLoading";
+export const LOADING_START = "loadingStart";
+export const LOADING_FINISH = "loadingFinish";
 export const PURGE_AUTH = "logOut";
 export const SET_EVENT = "setEvent";
 export const SET_AUTH = "setUser";

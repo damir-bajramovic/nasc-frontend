@@ -92,6 +92,7 @@ import {
   FETCH_PAYMENT_TOKEN,
   EVENT_SUBSCRIBE
 } from "@/store/actions.type";
+import { LOADING_START, LOADING_FINISH } from "@/store/mutations.type";
 import BraintreeDropIn from "@/components/BraintreeDropIn.vue";
 
 import VideoStream from "@/components/VideoStream.vue";
@@ -119,6 +120,7 @@ export default {
   },
   async beforeRouteEnter(to, from, next) {
     try {
+      store.commit(LOADING_START);
       await store.dispatch(FETCH_EVENT, to.params.slug);
       await store.dispatch(FETCH_COMMENTS, to.params.slug);
       if (store.state.auth.isAuthenticated)
@@ -127,6 +129,9 @@ export default {
     } catch (error) {
       next(error);
     }
+  },
+  mounted() {
+    store.commit(LOADING_FINISH);
   },
   computed: {
     ...mapGetters([

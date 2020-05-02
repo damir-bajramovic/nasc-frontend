@@ -1,7 +1,8 @@
 import { TagsService, EventsService } from "@/common/api.service";
 import { FETCH_EVENTS, FETCH_TAGS } from "./actions.type";
 import {
-  FETCH_START,
+  LOADING_START,
+  LOADING_FINISH,
   FETCH_END,
   SET_TAGS,
   UPDATE_EVENT_IN_LIST
@@ -10,7 +11,7 @@ import {
 const state = {
   tags: [],
   events: [],
-  isLoading: true,
+  isLoading: false,
   eventsCount: 0,
   itemsPerPage: 10, // TODO: Maybe make this configurable
   currentPage: 1
@@ -39,10 +40,11 @@ const getters = {
 
 const actions = {
   [FETCH_EVENTS]({ commit }, params) {
-    commit(FETCH_START);
+    commit(LOADING_START);
     return EventsService.query(params.type, params.filters)
       .then(({ data }) => {
         commit(FETCH_END, data);
+        commit(LOADING_FINISH);
       })
       .catch(error => {
         throw new Error(error);
@@ -61,13 +63,15 @@ const actions = {
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
 const mutations = {
-  [FETCH_START](state) {
+  [LOADING_START](state) {
     state.isLoading = true;
+  },
+  [LOADING_FINISH](state) {
+    state.isLoading = false;
   },
   [FETCH_END](state, { events, eventsCount }) {
     state.events = events;
     state.eventsCount = eventsCount;
-    state.isLoading = false;
   },
   [SET_TAGS](state, tags) {
     state.tags = tags;

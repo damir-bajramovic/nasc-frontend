@@ -154,6 +154,7 @@ import {
   EVENT_EDIT_REMOVE_TAG,
   EVENT_RESET_STATE
 } from "@/store/actions.type";
+import { LOADING_START, LOADING_FINISH } from "@/store/mutations.type";
 
 export default {
   name: "EventEdit",
@@ -171,6 +172,7 @@ export default {
     return next();
   },
   async beforeRouteEnter(to, from, next) {
+    store.commit(LOADING_START);
     // SO: https://github.com/vuejs/vue-router/issues/1034
     // If we arrive directly to this url, we need to fetch the event
     await store.dispatch(EVENT_RESET_STATE);
@@ -182,6 +184,9 @@ export default {
       );
     }
     return next();
+  },
+  mounted() {
+    store.commit(LOADING_FINISH);
   },
   async beforeRouteLeave(to, from, next) {
     if (
