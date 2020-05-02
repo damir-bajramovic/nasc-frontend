@@ -12,7 +12,8 @@ import { SET_AUTH, PURGE_AUTH, SET_ERROR } from "./mutations.type";
 const state = {
   errors: null,
   user: {},
-  isAuthenticated: !!JwtService.getToken()
+  isAuthenticated: !!JwtService.getToken(),
+  isAdmin: false
 };
 
 const getters = {
@@ -21,6 +22,9 @@ const getters = {
   },
   isAuthenticated(state) {
     return state.isAuthenticated;
+  },
+  isAdmin(state) {
+    return state.isAdmin;
   }
 };
 
@@ -95,6 +99,9 @@ const mutations = {
     state.user = user;
     state.errors = {};
     JwtService.saveToken(state.user.token);
+    state.isAdmin = JSON.parse(
+      atob(JwtService.getToken().split(".")[1])
+    ).isAdmin;
   },
   [PURGE_AUTH](state) {
     state.isAuthenticated = false;
