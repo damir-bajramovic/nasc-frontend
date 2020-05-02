@@ -63,7 +63,7 @@
                   label="Password:"
                   label-for="input-5"
                 >
-                  <ValidationProvider
+                  <validation-provider
                     rules="password:@confirm"
                     v-slot="{ errors }"
                   >
@@ -73,21 +73,21 @@
                       v-model="currentUser.password"
                     ></b-form-input>
                     <small class="form-text text-danger">{{ errors[0] }}</small>
-                  </ValidationProvider>
+                  </validation-provider>
                 </b-form-group>
                 <b-form-group
                   id="input-group-6"
                   label="Confirm Password:"
                   label-for="input-6"
                 >
-                  <ValidationProvider name="confirm" v-slot="{ errors }">
+                  <validation-provider name="confirm" v-slot="{ errors }">
                     <b-form-input
                       id="input-6"
                       type="password"
                       v-model="confirmationPassword"
                     ></b-form-input>
                     <small class="form-text text-danger">{{ errors[0] }}</small>
-                  </ValidationProvider>
+                  </validation-provider>
                 </b-form-group>
                 <div
                   class="d-flex justify-content-between align-items-center flex-wrap"
