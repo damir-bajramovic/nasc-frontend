@@ -50,6 +50,7 @@
 
 <script>
 import { mapState } from "vuex";
+import store from "@/store";
 import { LOGIN } from "@/store/actions.type";
 
 export default {
@@ -71,6 +72,13 @@ export default {
     ...mapState({
       errors: state => state.auth.errors
     })
+  },
+  beforeRouteEnter(to, from, next) {
+    if (store.state.auth.isAuthenticated) {
+      next({ path: "/" });
+      return;
+    }
+    next();
   }
 };
 </script>

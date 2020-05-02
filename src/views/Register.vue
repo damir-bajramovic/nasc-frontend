@@ -65,6 +65,7 @@
 
 <script>
 import { mapState } from "vuex";
+import store from "@/store";
 import { REGISTER } from "@/store/actions.type";
 
 export default {
@@ -91,6 +92,13 @@ export default {
         })
         .then(() => this.$router.push({ name: "home" }));
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    if (store.state.auth.isAuthenticated) {
+      next({ path: "/" });
+      return;
+    }
+    next();
   }
 };
 </script>
