@@ -12,7 +12,7 @@
       </b-navbar-nav>
       <b-navbar-nav v-else class="ml-auto">
         <b-nav-item :to="{ name: 'home' }">Home</b-nav-item>
-        <b-nav-item :to="{ name: 'event-edit' }"
+        <b-nav-item :to="{ name: 'event-edit' }" v-if="isAdmin"
           ><i class="ion-compose"></i>&nbsp;New Event</b-nav-item
         >
         <b-nav-item exact :to="{ name: 'settings' }"
@@ -26,6 +26,16 @@
           }"
           >{{ currentUser.username }}</b-nav-item
         >
+        <b-nav-form>
+          <b-button
+            type="button"
+            size="sm"
+            variant="secondary"
+            @click="logout"
+            class="inline"
+            >Log Out
+          </b-button>
+        </b-nav-form>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
@@ -42,11 +52,19 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { LOGOUT } from "@/store/actions.type";
 
 export default {
   name: "Header",
   computed: {
-    ...mapGetters(["currentUser", "isAuthenticated"])
+    ...mapGetters(["currentUser", "isAuthenticated", "isAdmin"])
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch(LOGOUT).then(() => {
+        this.$router.push({ name: "home" });
+      });
+    }
   }
 };
 </script>
