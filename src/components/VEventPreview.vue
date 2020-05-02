@@ -6,15 +6,19 @@
       </b-card-header>
       <b-card-body>
         <br />
-        <div
-          class="d-flex justify-content-between align-items-center flex-wrap"
-        >
+        <!-- class="d-flex justify-content-between align-items-center flex-wrap" -->
+        <div class="d-flex flex-column">
           <div>
             <h1 v-text="event.title" />
             <p v-text="event.description" />
           </div>
-          <b-button size="sm" variant="info" :to="eventLink"
-            >See Event
+          <b-button
+            size="sm"
+            variant="info"
+            :to="eventLink"
+            class="mt-auto ml-auto"
+          >
+            Show Event&nbsp;<i class="ion-android-arrow-dropright"></i>
           </b-button>
         </div>
       </b-card-body>
