@@ -72,5 +72,11 @@ export default new Router({
       props: true,
       component: () => import("@/views/EventEdit")
     }
+    // {
+    //   name: "venue-edit",
+    //   path: "/venue/:slug?",
+    //   props: true,
+    //   component: () => import("@/views/VenueEditor")
+    // }
   ]
 });
