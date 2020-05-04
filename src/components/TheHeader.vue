@@ -15,6 +15,9 @@
         <b-nav-item :to="{ name: 'event-edit' }" v-if="isAdmin"
           ><i class="ion-compose"></i>&nbsp;New Event</b-nav-item
         >
+        <b-nav-item :to="{ name: 'venue-edit' }" v-if="isAdmin"
+          ><i class="ion-compose"></i>&nbsp;New Venue</b-nav-item
+        >
         <b-nav-item exact :to="{ name: 'settings' }"
           ><i class="ion-gear-a"></i>&nbsp;Settings</b-nav-item
         >
